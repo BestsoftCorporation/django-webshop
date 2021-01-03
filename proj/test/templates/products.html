@@ -1,8 +1,9 @@
 {%  extends 'master.html' %}
+{% load static %}
 
 {% block title %}
     Telefoni - prodaja
-{% endblock %}
+{% endblock %}.image.url
 
 {%  block content %}
 
@@ -13,7 +14,7 @@
         <div class="ibox">
             <div class="ibox-content product-box">
                 <div class="product-imitation">
-                    {{ product.name }}
+                   <img height="300" width="100" src="{{product.image.url }}">
                 </div>
                 <div class="product-desc">
                     <span class="product-price">

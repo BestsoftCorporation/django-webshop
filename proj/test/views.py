@@ -5,17 +5,14 @@ from .models import Products
 from .forms import ProductForm
 
 def index(req):
-    if not req.user.is_authenticated:
         return render(req, 'index.html', {'page_title': 'Vezbe 13'})
-    else:
-        return redirect('test:products')
 
 login_required
 def products(req):
     tmp = Products.objects.all()
     return render(req, 'products.html', {'Products': tmp})
 
-@login_required
+
 def product(req, id):
     tmp = get_object_or_404(Products, id=id)
     return render(req, 'product.html', {'product': tmp, 'page_title': tmp.name})
