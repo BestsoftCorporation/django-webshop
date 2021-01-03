@@ -7,7 +7,7 @@ from .forms import ProductForm
 def index(req):
         return render(req, 'index.html', {'page_title': 'Vezbe 13'})
 
-login_required
+#@login_required
 def products(req):
     tmp = Products.objects.all()
     return render(req, 'products.html', {'Products': tmp})
@@ -39,10 +39,11 @@ def edit(req, id):
 @permission_required('test.add_product')
 def new(req):
     if req.method == 'POST':
-        form = ProductForm(req.POST)
+        form = ProductForm(req.POST, req.FILES)
 
         if form.is_valid():
-            a = Products(name=form.cleaned_data['name'], price=form.cleaned_data['price'], owner=req.user)
+
+            a = Products(name=form.cleaned_data['name'], price=form.cleaned_data['price'], image=req.FILES['image'], owner=req.user)
             a.save()
             return redirect('test:products')
         else:

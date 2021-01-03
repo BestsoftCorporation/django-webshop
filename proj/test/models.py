@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 class Products(models.Model):
     name = models.CharField(max_length=200)
     price = models.CharField(max_length=200)
-    image= models.ImageField()
+    image = models.ImageField(upload_to='media')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
