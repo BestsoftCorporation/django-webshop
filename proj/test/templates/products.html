@@ -1,15 +1,43 @@
 {%  extends 'master.html' %}
 
 {% block title %}
-    Articles
+    Telefoni - prodaja
 {% endblock %}
 
 {%  block content %}
-    <div class="list-group">
-        {% for article in articles %}
-            <a class="list-group-item list-group-item-action" href="{% url 'demo_app:article' article.id %}">
-                {{ article.title }}
-            </a>
-        {% endfor %}
+
+<div class="container">
+<div class="row">
+        {% for product in Products %}
+        <div class="col-md-3">
+        <div class="ibox">
+            <div class="ibox-content product-box">
+                <div class="product-imitation">
+                    {{ product.name }}
+                </div>
+                <div class="product-desc">
+                    <span class="product-price">
+                        $ {{ product.price }}
+                    </span>
+                    <small class="text-muted">Category</small>
+                    <a href="#" class="product-name">  {{ product.name }}</a>
+
+                    <div class="small m-t-xs">
+                        Many desktop publishing packages and web page editors now.
+                    </div>
+                    <div class="m-t text-righ">
+
+                        <a href="{% url 'test:product' product.id %}" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+        {% endfor %}
+
+</div>
+</div>
+
+
+
 {% endblock %}
