@@ -10,6 +10,13 @@ from .forms import ProductForm, RegisterForm
 def index(req):
         return render(req, 'index.html', {'page_title': 'Vezbe 13'})
 
+
+@permission_required('test.change_product')
+@login_required
+def panel(req):
+    tmp = Products.objects.all()
+    return render(req, 'admin.html', {'Products': tmp})
+
 #@login_required
 def products(req):
     tmp = Products.objects.all()
@@ -37,6 +44,14 @@ def edit(req, id):
         a = Products.objects.get(id=id)
         form = ProductForm(instance=a)
         return render(req, 'edit.html', {'form': form, 'id': id})
+
+@permission_required('test.change_product')
+@login_required
+def delete(req, id):
+    Products.objects.filter(id=id).delete()
+    tmp = Products.objects.all()
+    return render(req, 'admin.html', {'Products': tmp})
+
 
 
 @permission_required('test.add_product')

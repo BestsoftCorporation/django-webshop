@@ -1,0 +1,30 @@
+{% extends 'master.html' %}
+{% block title %}Registracija {% endblock %}
+{% block content %}
+
+<table style="width:100%">
+  <tr>
+    <th>Name</th>
+    <th>Price</th>
+    <th>Image</th>
+  </tr>
+{% for product in Products %}
+  <tr>
+    <td>{{product.name}}</td>
+    <td>{{product.price}}</td>
+    <td>{{product.image}}</td>
+    <td>
+       <a href="{% url 'test:delete' product.id %}">
+           <span class="badge badge-danger">Delete</span>
+       </a>
+    </td>
+      <td>
+       <a href="{% url 'test:edit' product.id %}">
+           <span class="badge badge-primary">Edit</span>
+       </a>
+    </td>
+  </tr>
+
+{% endfor %}
+</table>
+{% endblock %}
