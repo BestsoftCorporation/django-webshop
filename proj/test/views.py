@@ -3,8 +3,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required, permission_required
-from .models import Products
-from .forms import ProductForm, RegisterForm
+from .models import Products, Review
+from .forms import ProductForm, RegisterForm, ReviewForm
 
 
 def index(req):
@@ -25,7 +25,8 @@ def products(req):
 
 def product(req, id):
     tmp = get_object_or_404(Products, id=id)
-    return render(req, 'product.html', {'product': tmp, 'page_title': tmp.name})
+    rev = Review.objects.filter(product=tmp)
+    return render(req, 'product.html', {'product': tmp, 'page_title': tmp.name,'rev':rev})
 
 @permission_required('test.change_product')
 def edit(req, id):
@@ -69,6 +70,25 @@ def new(req):
     else:
         form = ProductForm()
         return render(req, 'new.html', {'form': form})
+
+@login_required()
+def review(req,id):
+    if req.method == 'POST':
+        form = ReviewForm(req.POST)
+
+        if form.is_valid():
+            print('saved')
+            r = Review(comment=form.cleaned_data['comment'], product=Products.objects.get(id=id))
+            r.save()
+            tmp = get_object_or_404(Products, id=id)
+            return render(req, 'product.html', {'product': tmp, 'page_title': tmp.name,'form': form})
+        else:
+            print('not saved')
+            tmp = get_object_or_404(Products, id=id)
+            return render(req, 'product.html', {'product': tmp, 'page_title': tmp.name,'form': form})
+    else:
+        tmp = get_object_or_404(Products, id=id)
+        return render(req, 'product.html', {'product': tmp, 'page_title': tmp.name})
 
 
 def user_register(request):

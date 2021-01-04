@@ -15,12 +15,48 @@
         </div>
         <div class="card-body">
             <blockquote class="blockquote mb-0">
-                <p>{{ product.price }}</p>
+                <p>{{ product.price }} $</p>
+                  <img  src="{{product.image.url }}">
                 <footer class="blockquote-footer">
-                    Author:
-                    <cite title="Source Title">
-                        {{ article.owner.username }}
-                    </cite>
+                     <div class="card card-outline-secondary my-4">
+          <div class="card-header">
+            Product Reviews
+          </div>
+
+          <div class="card-body">
+              {% for r in rev %}
+              <p>{{r.comment}}</p>
+              <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
+              <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+            <hr>
+              {% endfor %}
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
+              <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
+              <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+            <hr>
+
+            <hr>
+              <form method="post"  action="{% url 'test:review' product.id %}">
+                   {% csrf_token %}
+                  <input type="text" class="form-control" id="{{ form.comment.id_for_label }}" name="{{ form.comment.name }}" placeholder="Comment...">
+                  <input type="submit" class="btn btn-primary btn-lg" value="Leave a Review"/>
+                  {% if form.errors %}
+    {% for field in form %}
+        {% for error in field.errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+        </div>
+    {% endfor %}
+{% endif %}
+             </form>
+          </div>
+        </div>
                 </footer>
             </blockquote>
         </div>

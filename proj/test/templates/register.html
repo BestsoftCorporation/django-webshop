@@ -6,7 +6,11 @@
             {% csrf_token %}
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Register</div>
+                    <main role="main" class="container">
+                     <div class="jumbotron">
+                       <h1>Register</h1>
+                     </div>
+                    </main>
                     <div class="panel-body">
                         {% if error_message %}
                             <p class="bg-danger p-d ml-b">{{ error_message }}</p>

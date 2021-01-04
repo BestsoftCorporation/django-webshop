@@ -1,4 +1,4 @@
-from .models import Products
+from .models import Products, Review
 from django.forms import ModelForm, Form
 import django.forms as f
 
@@ -15,3 +15,8 @@ class RegisterForm(f.Form):
     first_name = f.CharField(widget=f.TextInput(attrs={'class':'form-control'}))
     last_name = f.CharField(widget=f.TextInput(attrs={'class':'form-control'}))
     phone_number = f.CharField(widget=f.NumberInput(attrs={'class':'form-control'}), required=False)
+
+class ReviewForm(ModelForm):
+    class Meta:
+        model = Review
+        fields = ['comment']

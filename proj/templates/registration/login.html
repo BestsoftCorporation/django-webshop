@@ -1,5 +1,7 @@
 {% extends 'master.html' %}
-{% Login %}
+{% block title %}
+    Log in
+{% endblock %}
 {% block content %}
     {% if form.errors %}
         <p>Your username and password didn't match. Please try again.</p>
