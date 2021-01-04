@@ -77,19 +77,16 @@ def review(req,id):
         form = ReviewForm(req.POST)
 
         if form.is_valid():
-            print('saved')
-            r = Review(comment=form.cleaned_data['comment'], product=Products.objects.get(id=id))
+
+            r = Review(comment=form.cleaned_data['comment'], product=Products.objects.get(id=id),owner=req.user)
             r.save()
-            tmp = get_object_or_404(Products, id=id)
-            return render(req, 'product.html', {'product': tmp, 'page_title': tmp.name,'form': form})
+            return redirect('/product/'+str(id))
         else:
-            print('not saved')
+            #return redirect('/product/' + str(id))
             tmp = get_object_or_404(Products, id=id)
             return render(req, 'product.html', {'product': tmp, 'page_title': tmp.name,'form': form})
     else:
-        tmp = get_object_or_404(Products, id=id)
-        return render(req, 'product.html', {'product': tmp, 'page_title': tmp.name})
-
+        return redirect('/product/'+str(id))
 
 def user_register(request):
     # if this is a POST request we need to process the form data
