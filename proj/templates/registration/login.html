@@ -1,5 +1,5 @@
 {% extends 'master.html' %}
-
+{% Login %}
 {% block content %}
     {% if form.errors %}
         <p>Your username and password didn't match. Please try again.</p>
@@ -29,5 +29,6 @@
         </div>
 
         <button type="submit" class="btn btn-primary">Login</button>
+        <a  href="{% url 'test:user_register' %}">Register</a>
     </form>
 {% endblock %}

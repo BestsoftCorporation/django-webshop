@@ -30,7 +30,7 @@ def product(req, id):
 @permission_required('test.change_product')
 def edit(req, id):
     if req.method == 'POST':
-        form = ProductForm(req.POST)
+        form = ProductForm(req.POST, req.FILES)
 
         if form.is_valid():
             p = Products.objects.get(id=id)

@@ -1,5 +1,5 @@
 {% extends 'master.html' %}
-{% block title %}Registracija {% endblock %}
+{% block title %}Control panel {% endblock %}
 {% block content %}
 
 <table style="width:100%">
@@ -8,6 +8,7 @@
     <th>Price</th>
     <th>Image</th>
   </tr>
+    
 {% for product in Products %}
   <tr>
     <td>{{product.name}}</td>
@@ -27,4 +28,8 @@
 
 {% endfor %}
 </table>
+  <a href="{% url 'test:new'%}">
+           <span class="badge badge-primary">New product</span>
+  </a>
+
 {% endblock %}
